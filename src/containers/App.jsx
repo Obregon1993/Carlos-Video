@@ -8,35 +8,39 @@ import Footer from '../components/Footer';
 import '../assets/styles/App.scss';
 
 const App = () => {
-  const [videos, setVideos] = useState([]);
+  const [videos, setVideos] = useState({ mylist: [], trends: [], originals: [] });
 
   useEffect(() => {
     fetch('http://localhost:3000/initalState')
       .then((response) => response.json())
       .then((data) => setVideos(data));
   }, []);
-  console.log(videos);
 
   return (
 
     <div className='App'>
       <Header />
       <Search />
-      <Categories title='My List'>
-        <Carousel>
-          <CarouselItem />
-          <CarouselItem />
-          <CarouselItem />
-          <CarouselItem />
+      {
+        videos.mylist.lenght > 0 && (
+          <Categories title='My List'>
+            <Carousel>
+              <CarouselItem />
 
-        </Carousel>
+            </Carousel>
 
-      </Categories>
+          </Categories>
+        )
+      }
 
       <Categories title='Tendency'>
         <Carousel>
-          <CarouselItem />
-          <CarouselItem />
+          {videos.trends.map((item) => (
+            <CarouselItem
+              key={item.id}
+              {...item}
+            />
+          ))}
 
         </Carousel>
 
@@ -44,8 +48,6 @@ const App = () => {
 
       <Categories title='Originals'>
         <Carousel>
-          <CarouselItem />
-          <CarouselItem />
           <CarouselItem />
 
         </Carousel>
