@@ -16,7 +16,7 @@ const Home = ({ myList, trends, originals }) => {
 
       <Search />
       {
-        myList.lenght > 0 && (
+        myList.length > 0 && (
           <Categories title='My List'>
             <Carousel>
               {myList.map((item) => (
